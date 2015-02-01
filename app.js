@@ -21,7 +21,7 @@ GameState.prototype.create = function() {
   this.GRAVITY = 980; // pixels/second/second
 
   // Create an object representing our gun
-  this.gun = this.game.add.sprite(50, this.game.height - 64, 'bullet');
+  this.gun = this.game.add.sprite(this.game.width / 2 - 32, this.game.height / 2 - 32, 'bullet');
 
   // Set the pivot point to the center of the gun
   this.gun.anchor.setTo(0.5, 0.5);
