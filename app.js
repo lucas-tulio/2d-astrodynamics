@@ -47,18 +47,6 @@ GameState.prototype.create = function() {
   // Turn on gravity
   game.physics.arcade.gravity.y = this.GRAVITY;
 
-  // Create some ground
-  this.ground = this.game.add.group();
-  for(var x = 0; x < this.game.width; x += 32) {
-
-    // Add the ground blocks, enable physics on each, make them immovable
-    var groundBlock = this.game.add.sprite(x, this.game.height - 32, 'ground');
-    this.game.physics.enable(groundBlock, Phaser.Physics.ARCADE);
-    groundBlock.body.immovable = true;
-    groundBlock.body.allowGravity = false;
-    this.ground.add(groundBlock);
-  }
-
   // Create a group for explosions
   this.explosionGroup = this.game.add.group();
 
@@ -105,16 +93,6 @@ GameState.prototype.shootBullet = function() {
 
 // The update() method is called every frame
 GameState.prototype.update = function() {
-
-  // Check if bullets have collided with the ground
-  this.game.physics.arcade.collide(this.bulletPool, this.ground, function(bullet, ground) {
-
-    // Create an explosion
-    this.getExplosion(bullet.x, bullet.y);
-
-    // Kill the bullet
-    bullet.kill();
-  }, null, this);
 
   // Rotate all living bullets to match their trajectory
   this.bulletPool.forEachAlive(function(bullet) {
