@@ -15,13 +15,13 @@ GameState.prototype.create = function() {
   this.game.stage.backgroundColor = 0x4488cc;
 
   // Define constants
-  this.SHOT_DELAY = 300; // milliseconds (10 bullets/3 seconds)
-  this.BULLET_SPEED = 800; // pixels/second
-  this.NUMBER_OF_BULLETS = 20;
+  this.SHOT_DELAY = 1; // milliseconds (10 bullets/3 seconds)
+  this.BULLET_SPEED = 80; // pixels/second
+  this.NUMBER_OF_BULLETS = 1000;
   this.GRAVITY = 980; // pixels/second/second
 
   // Create an object representing our gun
-  this.gun = this.game.add.sprite(this.game.width / 2 - 32, this.game.height / 2 - 32, 'bullet');
+  this.gun = this.game.add.sprite(this.game.width / 2, this.game.height / 2, 'bullet');
 
   // Set the pivot point to the center of the gun
   this.gun.anchor.setTo(0.5, 0.5);
@@ -153,5 +153,5 @@ GameState.prototype.getExplosion = function(x, y) {
   return explosion;
 };
 
-var game = new Phaser.Game(848, 450, Phaser.AUTO, 'game');
+var game = new Phaser.Game(640, 640, Phaser.AUTO, 'game');
 game.state.add('game', GameState, true);
