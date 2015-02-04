@@ -11,11 +11,15 @@ GameState.prototype.create = function() {
 
   // Set stage background color
   this.game.stage.backgroundColor = 0x000;
-  this.GRAVITY = 9.8;
+  
+  // Gravitational constant
+  this.G = 6.67 * Math.pow(10, -11);
 
   // Create our objects
-  var planet = this.game.add.sprite(this.game.width / 2, this.game.height / 2, 'rocket');
-  var rocket = this.game.add.sprite(0, 0, 'rocket');
+  //var planet = this.game.add.sprite(0, 0, 'rocket');
+  //var rocket = this.game.add.sprite(0, 0, 'rocket');
+
+  var planet = new Planet(this.game.width / 2, this.game.height / 2);
 
 };
 
