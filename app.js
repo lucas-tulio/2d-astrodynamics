@@ -1,47 +1,45 @@
 console.log("init");
 
-// This example uses the Phaser 2.2.2 framework
-
-// Copyright © 2014 John Watson
-// Licensed under the terms of the MIT License
-
 var GameState = function(game) {
+
 };
 
-// Setup the example
+//
+// Setup
+//
 GameState.prototype.create = function() {
 
   // Set stage background color
-  this.game.stage.backgroundColor = 0x4488cc;
-
-  // Define constants
-  this.SHOT_DELAY = 1; // milliseconds (10 bullets/3 seconds)
-  this.BULLET_SPEED = 80; // pixels/second
-  this.NUMBER_OF_BULLETS = 1000;
+  this.game.stage.backgroundColor = 0x000;
+  this.speed = 800; // pixels/second
   this.GRAVITY = 980; // pixels/second/second
 
-  // Create an object representing our gun
-  this.gun = this.game.add.sprite(this.game.width / 2, this.game.height / 2, 'bullet');
+  // Define constants
+  this.SHOT_DELAY = 1000;
+  this.NUMBER_OF_rocketS = 3;
 
-  // Set the pivot point to the center of the gun
-  this.gun.anchor.setTo(0.5, 0.5);
+  // Create an object representing our platform
+  this.platform = this.game.add.sprite(this.game.width / 2, this.game.height / 2, 'rocket');
 
-  // Create an object pool of bullets
-  this.bulletPool = this.game.add.group();
-  for(var i = 0; i < this.NUMBER_OF_BULLETS; i++) {
+  // Set the pivot point to the center of the platform
+  this.platform.anchor.setTo(0.5, 0.5);
 
-    // Create each bullet and add it to the group.
-    var bullet = this.game.add.sprite(0, 0, 'bullet');
-    this.bulletPool.add(bullet);
+  // Create an object pool of rockets
+  this.rocketPool = this.game.add.group();
+  for(var i = 0; i < this.NUMBER_OF_rocketS; i++) {
 
-    // Set its pivot point to the center of the bullet
-    bullet.anchor.setTo(0.5, 0.5);
+    // Create each rocket and add it to the group.
+    var rocket = this.game.add.sprite(0, 0, 'rocket');
+    this.rocketPool.add(rocket);
 
-    // Enable physics on the bullet
-    this.game.physics.enable(bullet, Phaser.Physics.ARCADE);
+    // Set its pivot point to the center of the rocket
+    rocket.anchor.setTo(0.5, 0.5);
+
+    // Enable physics on the rocket
+    this.game.physics.enable(rocket, Phaser.Physics.ARCADE);
 
     // Set its initial state to "dead".
-    bullet.kill();
+    rocket.kill();
   }
 
   // Turn on gravity
@@ -56,101 +54,55 @@ GameState.prototype.create = function() {
   this.game.input.activePointer.y = this.game.height/2 - 100;
 };
 
-GameState.prototype.shootBullet = function() {
-  // Enforce a short delay between shots by recording
-  // the time that each bullet is shot and testing if
-  // the amount of time since the last shot is more than
-  // the required delay.
-  if (this.lastBulletShotAt === undefined) this.lastBulletShotAt = 0;
-  if (this.game.time.now - this.lastBulletShotAt < this.SHOT_DELAY) return;
-  this.lastBulletShotAt = this.game.time.now;
+GameState.prototype.shootrocket = function() {
 
-  // Get a dead bullet from the pool
-  var bullet = this.bulletPool.getFirstDead();
+  // Launch delay
+  if (this.lastrocketShotAt === undefined) this.lastrocketShotAt = 0;
+  if (this.game.time.now - this.lastrocketShotAt < this.SHOT_DELAY) return;
+  this.lastrocketShotAt = this.game.time.now;
 
-  // If there aren't any bullets available then don't shoot
-  if (bullet === null || bullet === undefined) return;
+  // Get a dead rocket from the pool
+  var rocket = this.rocketPool.getFirstDead();
 
-  // Revive the bullet
-  // This makes the bullet "alive"
-  bullet.revive();
+  // If there aren't any rockets available then don't shoot
+  if (rocket === null || rocket === undefined) return;
 
-  // Bullets should kill themselves when they leave the world.
-  // Phaser takes care of this for me by setting this flag
-  // but you can do it yourself by killing the bullet if
-  // its x,y coordinates are outside of the world.
-  bullet.checkWorldBounds = true;
-  bullet.outOfBoundsKill = true;
+  // Revive the rocket
+  // This makes the rocket "alive"
+  rocket.revive();
 
-  // Set the bullet position to the gun position.
-  bullet.reset(this.gun.x, this.gun.y);
-  bullet.rotation = this.gun.rotation;
+  // Kill the rocket object once it leaves the screen
+  rocket.checkWorldBounds = true;
+  rocket.outOfBoundsKill = true;
+
+  // Set the rocket position to the platform position.
+  rocket.reset(this.platform.x, this.platform.y);
+  rocket.rotation = this.platform.rotation;
 
   // Shoot it in the right direction
-  bullet.body.velocity.x = Math.cos(bullet.rotation) * this.BULLET_SPEED;
-  bullet.body.velocity.y = Math.sin(bullet.rotation) * this.BULLET_SPEED;
+  rocket.body.velocity.x = Math.cos(rocket.rotation) * this.speed;
+  rocket.body.velocity.y = Math.sin(rocket.rotation) * this.speed;
 };
 
-// The update() method is called every frame
+//
+// Update
+//
 GameState.prototype.update = function() {
 
-  // Rotate all living bullets to match their trajectory
-  this.bulletPool.forEachAlive(function(bullet) {
-    bullet.rotation = Math.atan2(bullet.body.velocity.y, bullet.body.velocity.x);
+  // Rotate all living rockets to match their trajectory
+  this.rocketPool.forEachAlive(function(rocket) {
+    rocket.rotation = Math.atan2(rocket.body.velocity.y, rocket.body.velocity.x);
   }, this);
 
-  // Aim the gun at the pointer.
+  // Aim the platform at the pointer.
   // All this function does is calculate the angle using
-  // Math.atan2(yPointer-yGun, xPointer-xGun)
-  this.gun.rotation = this.game.physics.arcade.angleToPointer(this.gun);
+  // Math.atan2(yPointer-yplatform, xPointer-xplatform)
+  this.platform.rotation = this.game.physics.arcade.angleToPointer(this.platform);
 
-  // Shoot a bullet
+  // Shoot a rocket
   if (this.game.input.activePointer.isDown) {
-    this.shootBullet();
+    this.shootrocket();
   }
-};
-
-// Try to get a used explosion from the explosionGroup.
-// If an explosion isn't available, create a new one and add it to the group.
-// Setup new explosions so that they animate and kill themselves when the
-// animation is complete.
-GameState.prototype.getExplosion = function(x, y) {
-
-  // Get the first dead explosion from the explosionGroup
-  var explosion = this.explosionGroup.getFirstDead();
-
-  // If there aren't any available, create a new one
-  if (explosion === null) {
-
-    explosion = this.game.add.sprite(0, 0, 'explosion');
-    explosion.anchor.setTo(0.5, 0.5);
-
-    // Add an animation for the explosion that kills the sprite when the
-    // animation is complete
-    //var animation = explosion.animations.add('boom', [0,1,2,3], 60, false);
-    //animation.killOnComplete = true;
-
-    // Add the explosion sprite to the group
-    this.explosionGroup.add(explosion);
-  }
-
-  // Revive the explosion (set it's alive property to true)
-  // You can also define a onRevived event handler in your explosion objects
-  // to do stuff when they are revived.
-  explosion.revive();
-
-  // Move the explosion to the given coordinates
-  explosion.x = x;
-  explosion.y = y;
-
-  // Set rotation of the explosion at random for a little variety
-  explosion.angle = this.game.rnd.integerInRange(0, 360);
-
-  // Play the animation
-  //explosion.animations.play('boom');
-
-  // Return the explosion itself in case we want to do anything else with it
-  return explosion;
 };
 
 var game = new Phaser.Game(640, 640, Phaser.AUTO, 'game');
