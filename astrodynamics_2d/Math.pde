@@ -1,7 +1,8 @@
 static final double G = 6.673 * pow(10, -11); // Gravitational constant
 static final double EARTH_MASS = 5.98 * pow(10, 24);
 static final double DIST = 6.38 * pow(10, 6); // Distance to the center of the Earth
-static final double SCALE = 425333; // One pixel equals 425.333 meters
+static final int PLANET_RADIUS = 15;
+static final double SCALE = DIST / PLANET_RADIUS;
 
 static class Math {
   
