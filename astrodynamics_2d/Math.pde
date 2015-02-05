@@ -1,7 +1,7 @@
 static final float G = 6.673 * pow(10, -11); // Gravitational constant
 static final float EARTH_MASS = 5.98 * pow(10, 24);
 static final float DIST = 6.38 * pow(10, 6); // Distance to the center of the Earth
-static final float PLANET_RADIUS = 15f;
+static final float PLANET_RADIUS = 5f;
 static final float SCALE = DIST / PLANET_RADIUS;
 
 static class Math {
