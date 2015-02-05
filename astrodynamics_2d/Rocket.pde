@@ -14,8 +14,9 @@ class Rocket {
     
   }
   
-  public void update() {
-    
+  public void update(int x, int y) {
+    this.x = x;
+    this.y = y;
   }
   
   public void draw() {

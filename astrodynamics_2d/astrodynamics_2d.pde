@@ -14,7 +14,7 @@ void keyPressed() {
 }
 
 void update() {
-  rocket.update();
+  rocket.update(mouseX, mouseY);
 }
 
 void draw() {
@@ -25,4 +25,6 @@ void draw() {
   
   planet.draw();
   rocket.draw();
+  
+  text("distance to surface: " + Math.distanceToSurface(rocket, planet), 10, 20);
 }
