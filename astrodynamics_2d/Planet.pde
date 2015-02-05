@@ -1,7 +1,7 @@
 class Planet {
-  int x, y, radius, mass;
+  float x, y, radius, mass;
   
-  public Planet(int x, int y, int radius, int mass) {
+  public Planet(float x, float y, float radius, float mass) {
     this.x = x;
     this.y = y;
     this.radius = radius;

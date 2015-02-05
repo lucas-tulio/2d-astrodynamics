@@ -1,8 +1,8 @@
-static final double G = 6.673 * pow(10, -11); // Gravitational constant
-static final double EARTH_MASS = 5.98 * pow(10, 24);
-static final double DIST = 6.38 * pow(10, 6); // Distance to the center of the Earth
-static final int PLANET_RADIUS = 15;
-static final double SCALE = DIST / PLANET_RADIUS;
+static final float G = 6.673 * pow(10, -11); // Gravitational constant
+static final float EARTH_MASS = 5.98 * pow(10, 24);
+static final float DIST = 6.38 * pow(10, 6); // Distance to the center of the Earth
+static final float PLANET_RADIUS = 15f;
+static final float SCALE = DIST / PLANET_RADIUS;
 
 static class Math {
   
@@ -12,46 +12,40 @@ static class Math {
   * Distance will be given in pixels, so we have to convert it to the real
   * thing.
   */
-  static double getGravityForce(double distance) {
+  static float getGravityForce(float distance) {
     return G * EARTH_MASS / pow((float)(distance * SCALE), 2f);
   }
   
   /**
   * Returns the distance to the Planet's center.
   */
-  static double getDistanceToCenter(Rocket rocket, Planet planet) {
-    int adjacent = getSide(rocket.x, planet.x);
-    int opposite = getSide(rocket.y, planet.y);
-    double hypotenuse = getHypotenuse(adjacent, opposite);
+  static float getDistanceToCenter(Rocket rocket, Planet planet) {
+    float adjacent = getSide(rocket.x, planet.x);
+    float opposite = getSide(rocket.y, planet.y);
+    float hypotenuse = getHypotenuse(adjacent, opposite);
     return hypotenuse;
   }
   
   /**
   * Returns the distance to the Planet's surface:
   */
-  static double getDistanceToSurface(Rocket rocket, Planet planet) {
-    double hypotenuse = getDistanceToCenter(rocket, planet);
-    return hypotenuse - planet.radius / 2;
+  static float getDistanceToSurface(Rocket rocket, Planet planet) {
+    float hypotenuse = getDistanceToCenter(rocket, planet);
+    return hypotenuse - planet.radius / 2f;
   }
   
   /**
   * Given two sides of a square triange, return the hypotenuse
   */
-  private static double getHypotenuse(int adjacent, int opposite) {
-    return sqrt((pow(adjacent, 2) + pow(opposite, 2)));
+  private static float getHypotenuse(float adjacent, float opposite) {
+    return sqrt((pow(adjacent, 2f) + pow(opposite, 2f)));
   }
 
   /**
   * Given two points, return the |distance| between them
   */
-  private static int getSide(int x1, int x2) {
-    
-    int side = x1 - x2;
-    
-    if(side < 0) {
-      side = side * -1;
-    }
-  
+  private static float getSide(float x1, float x2) {
+    float side = x1 - x2;
     return side;
   }
 

@@ -3,18 +3,26 @@ Rocket rocket;
 
 void setup() {
   size(640, 640);  
+  start();
+}
+
+void start() {
   planet = new Planet(width / 2, height / 2, 30, 10);
-  rocket = new Rocket(planet.x, planet.y, planet.radius);
+  rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
+  
+  rocket.y -= 80;
 }
 
 void keyPressed() {
-  if (keyCode == 32) {
-    rocket.launch();
+  if (keyCode == 82) {
+    start();
+  } else if (keyCode == 32) {
+    rocket.thurst.x = 0f;
   }
 }
 
 void update() {
-  rocket.update(mouseX, mouseY);
+  rocket.update(planet);
 }
 
 void draw() {
