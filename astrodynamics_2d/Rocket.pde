@@ -11,7 +11,7 @@ class Rocket {
     height = 8;
     this.x -= width / 2; // Horizontal adjust
     
-    thurst = new Vector2(0.498f, 0f);
+    thurst = new Vector2(0f, 0f);
     gravity = new Vector2(0f, 0f);
   }
   
@@ -36,8 +36,7 @@ class Rocket {
     gravity.x = gravityForce * gravitySin;
     gravity.y = gravityForce * gravityCos;
     
-    // Calculate thurst vector
-    // ---
+    // Update thurst vector
     
     // Sum it all up
     delta.x = -gravity.x + thurst.x;

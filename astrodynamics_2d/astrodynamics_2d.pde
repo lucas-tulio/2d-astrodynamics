@@ -1,5 +1,6 @@
 Planet planet;
-Rocket rocket; 
+Rocket rocket;
+boolean rekt;
 
 void setup() {
   size(640, 640);  
@@ -9,8 +10,8 @@ void setup() {
 void start() {
   planet = new Planet(width / 2, height / 2, 30, 10);
   rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
-  
-  rocket.y -= 80;
+  rocket.y -= 100f;
+  rekt = false;
 }
 
 void keyPressed() {
@@ -18,18 +19,31 @@ void keyPressed() {
     start();
   } else if (keyCode == 32) {
     rocket.thurst.x = 0f;
-  }
+    rocket.thurst.y = 0f;
+  }    
 }
 
 void update() {
-  rocket.update(planet);
+  if (Math.getDistanceToCenter(rocket, planet) < planet.radius / 2) {
+    rekt = true;
+  }
+  
+  if (rekt == false) {
+    rocket.update(planet);
+  }
 }
 
 void draw() {
   update();
   background(0);
-  fill(255);
-  stroke(255);
+  
+  if (rekt) {
+    fill(255, 0, 0);
+    stroke(255, 0, 0);
+  } else {
+    fill(255);
+    stroke(255);
+  }
   
   planet.draw();
   rocket.draw();
