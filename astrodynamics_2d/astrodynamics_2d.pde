@@ -1,5 +1,5 @@
 Planet planet;
-Rocket rocket;
+Rocket rocket; 
 
 void setup() {
   size(640, 640);  
@@ -26,5 +26,6 @@ void draw() {
   planet.draw();
   rocket.draw();
   
-  text("distance to surface: " + Math.distanceToSurface(rocket, planet), 10, 20);
+  text("distance to surface: " + Math.getDistanceToSurface(rocket, planet), 10, 20);
+  text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planet)), 10, 40);
 }
