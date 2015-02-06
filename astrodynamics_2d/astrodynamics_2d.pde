@@ -10,9 +10,10 @@ void setup() {
 }
 
 void start() {
-  planet = new Planet(width / 2, height / 2, 10, 10);
+
+  planet = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
   rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
-  rocket.y -= 80f;
+  rocket.y -= 180f;
   
   rekt = false;
 }

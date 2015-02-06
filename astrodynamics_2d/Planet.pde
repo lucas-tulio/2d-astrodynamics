@@ -9,6 +9,6 @@ class Planet {
   }
   
   public void draw() {
-    ellipse(x, y, radius, radius);
+    ellipse(x, y, radius * 2, radius * 2);
   }
 }
