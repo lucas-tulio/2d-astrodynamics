@@ -3,18 +3,20 @@ class Rocket {
   float x, y, width, height;
   float fuel = 100.0;
   float angle, force;
-  Vector2 thurst, gravity;
+  Vector2 thurst, gravity, speed;
   boolean enginesOn;
   
   public Rocket(float x, float y) {
     this.x = x; // Basic attributes
     this.y = y;
-    width = 2;
-    height = 2;
+    width = 4;
+    height = 8;
     this.x -= width / 2; // Horizontal adjust
     
     thurst = new Vector2(0f, 0f);
     gravity = new Vector2(0f, 0f);
+    speed = new Vector2(0f, 0f);
+    force = 1f;
   }
   
   public void rotateLeft() {
@@ -25,18 +27,12 @@ class Rocket {
   }
   public void thurst() {
     enginesOn = true;
-    thurst.x = sin(angle);
-    thurst.y = cos(angle);
   }
   public void stop() {
-    enginesOn = false;
-    thurst.x = 0f;
-    thurst.y = 0f;
+    enginesOn = false;    
   }
   
   public void update(Planet planet) {
-    
-    Vector2 delta = new Vector2(0f, 0f);
     
     // Pythagoras
     float adjacent, opposite, hypotenuse = 0f;
@@ -52,13 +48,22 @@ class Rocket {
     gravity.y = gravityForce * gravityCos;
     
     // Update thurst vector
+    if (enginesOn) {
+      thurst.x = -sin(angle) * force;
+      thurst.y = cos(angle) * force;
+    } else {
+      thurst.x = 0f;
+      thurst.y = 0f;
+    }
     
     // Sum it all up
-    delta.x = -gravity.x + thurst.x;
-    delta.y = -gravity.y + thurst.y;
+    //delta.x = -gravity.x + thurst.x;
+    //delta.y = -gravity.y + thurst.y;
+    speed.x += thurst.x;
+    speed.y += thurst.y;
     
-    this.x += delta.x / 10f;
-    this.y += delta.y / 10f;
+    this.x += thurst.x;
+    this.y += thurst.y;
   }
   
   public void draw(int width, int height) {
@@ -72,9 +77,11 @@ class Rocket {
     }
     
     pushMatrix();
-      rotate(angle);
-      triangle(this.x - this.width, this.y, this.x, this.y - this.height, this.x + this.width, this.y);
-    popMatrix();
+    translate(x, y);
+    rotate(angle);
+    
+    triangle(-this.width, 0, 0, this.height, this.width, 0);
+    popMatrix();    
     
     stroke(255);
     fill(255);

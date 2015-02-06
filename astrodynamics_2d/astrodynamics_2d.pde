@@ -11,10 +11,7 @@ void start() {
   planet = new Planet(width / 2, height / 2, 10, 10);
   rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
   rocket.y -= 5f;
-  
-  rocket.thurst.x = 3f;
-  rocket.thurst.y = -2f;
-  
+    
   rekt = false;
 }
 
