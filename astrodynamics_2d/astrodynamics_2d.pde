@@ -1,9 +1,11 @@
+ParticleSystem ps;
 Planet planet;
 Rocket rocket;
 boolean rekt;
 
 void setup() {
-  size(640, 640);  
+  size(640, 640);
+  ps = new ParticleSystem();
   start();
 }
 
@@ -38,7 +40,9 @@ void update() {
 }
 
 void draw() {
+
   update();
+
   background(0);
   
   if (rekt) {
@@ -50,8 +54,12 @@ void draw() {
   }
   
   planet.draw();
-  rocket.draw(width, height);
+  if (rekt == false) {
+    rocket.draw(width, height, ps);
+  }
   
+  fill(255);
+  stroke(255);
   text("distance to surface: " + Math.getDistanceToSurface(rocket, planet), 10, 20);
   text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planet)), 10, 40);
 }

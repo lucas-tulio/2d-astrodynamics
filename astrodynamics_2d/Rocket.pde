@@ -10,7 +10,7 @@ class Rocket {
     this.x = x; // Basic attributes
     this.y = y;
     width = 4;
-    height = 8;
+    height = 12;
     this.x -= width / 2; // Horizontal adjust
     angle = -PI;
     
@@ -62,11 +62,13 @@ class Rocket {
     this.y += speed.y / 10f;
   }
   
-  public void draw(int width, int height) {
-    
+  public void draw(int width, int height, ParticleSystem ps) {
+  ps.run();
     if (enginesOn) {
       stroke(0, 255, 0);
       fill(0, 255, 0);
+      ps.addParticle(new PVector(x, y), angle);
+      
     } else {
       stroke(255);
       fill(255);
