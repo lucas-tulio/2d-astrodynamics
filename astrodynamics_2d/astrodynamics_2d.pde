@@ -10,22 +10,20 @@ void setup() {
 void start() {
   planet = new Planet(width / 2, height / 2, 10, 10);
   rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
-  rocket.y -= 5f;
-    
+  rocket.y -= 80f;
+  
   rekt = false;
 }
 
 void keyPressed() {
   if (keyCode == 82) {
     start();
-  } else if (keyCode == 38) { // Up
-    rocket.thurst();
+  } else if (keyCode == 32) { // Space
+    rocket.toggleThurst();
   } else if (keyCode == 37) { // Left
     rocket.rotateLeft();
   } else if (keyCode == 39) { // Right
     rocket.rotateRight();
-  } else if (keyCode == 40) { // Down
-    rocket.stop();
   }
 }
 

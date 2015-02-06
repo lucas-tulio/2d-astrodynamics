@@ -12,11 +12,12 @@ class Rocket {
     width = 4;
     height = 8;
     this.x -= width / 2; // Horizontal adjust
+    angle = -PI;
     
     thurst = new Vector2(0f, 0f);
     gravity = new Vector2(0f, 0f);
     speed = new Vector2(0f, 0f);
-    force = 1f;
+    force = 0.1f;
   }
   
   public void rotateLeft() {
@@ -25,11 +26,8 @@ class Rocket {
   public void rotateRight() {
     angle += 5f * PI / 180f;
   }
-  public void thurst() {
-    enginesOn = true;
-  }
-  public void stop() {
-    enginesOn = false;    
+  public void toggleThurst() {
+    enginesOn = !enginesOn;
   }
   
   public void update(Planet planet) {
@@ -57,13 +55,11 @@ class Rocket {
     }
     
     // Sum it all up
-    //delta.x = -gravity.x + thurst.x;
-    //delta.y = -gravity.y + thurst.y;
-    speed.x += thurst.x;
-    speed.y += thurst.y;
+    speed.x += -gravity.x + thurst.x;
+    speed.y += -gravity.y + thurst.y;
     
-    this.x += thurst.x;
-    this.y += thurst.y;
+    this.x += speed.x / 10f;
+    this.y += speed.y / 10f;
   }
   
   public void draw(int width, int height) {
