@@ -2,6 +2,9 @@ class Trajectory {
   
   void draw(Planet planet, Rocket rocket) {
     
+    // Create a copy of our rocket and run the same calculations
+    // on it. Use the results to draw the trajectory
+    
     Rocket r = new Rocket(planet.x, planet.y - planet.radius / 2);
     r.x = rocket.x;
     r.y = rocket.y;
@@ -15,8 +18,6 @@ class Trajectory {
     stroke(255);
     fill(255);
     
-    // Will simulate the whole trajectory and
-    // draw it as points in space
     for (int i = 0; i < 1000; i++) {
 
       // Pythagoras
@@ -50,8 +51,7 @@ class Trajectory {
       
       point(r.x, r.y);
       
-    } 
-    
-    
+    }
   }
 }
+
