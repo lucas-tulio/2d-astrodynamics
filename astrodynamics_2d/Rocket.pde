@@ -63,16 +63,14 @@ class Rocket {
   }
   
   public void draw(int width, int height, ParticleSystem ps) {
-  ps.run();
+    
+    ps.run();
     if (enginesOn) {
-      stroke(0, 255, 0);
-      fill(0, 255, 0);
       ps.addParticle(new PVector(x, y), angle);
-      
-    } else {
-      stroke(255);
-      fill(255);
     }
+    
+    stroke(255);
+    fill(255);
     
     pushMatrix();
     translate(x, y);
@@ -80,8 +78,5 @@ class Rocket {
     
     triangle(-this.width, 0, 0, this.height, this.width, 0);
     popMatrix();    
-    
-    stroke(255);
-    fill(255);
   }
 }

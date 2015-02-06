@@ -45,7 +45,7 @@ void update() {
 void draw() {
 
   update();
-
+  
   background(0);
   
   if (rekt) {
