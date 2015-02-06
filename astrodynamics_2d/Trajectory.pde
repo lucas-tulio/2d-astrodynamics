@@ -1,5 +1,9 @@
 class Trajectory {
   
+  int currentDraw = 0;
+  int drawEvery = 10;
+  int maxPoints = 1000;
+  
   void draw(Planet planet, Rocket rocket) {
     
     // Create a copy of our rocket and run the same calculations
@@ -18,7 +22,7 @@ class Trajectory {
     stroke(255);
     fill(255);
     
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < maxPoints; i++) {
 
       // Pythagoras
       float adjacent, opposite, hypotenuse = 0f;
@@ -49,8 +53,10 @@ class Trajectory {
       r.x += r.speed.x / 10f;
       r.y += r.speed.y / 10f;
       
-      point(r.x, r.y);
-      
+      currentDraw++;
+      if (currentDraw % drawEvery == 0) { 
+        point(r.x, r.y);
+      }
     }
   }
 }
