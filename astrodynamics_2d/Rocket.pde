@@ -3,8 +3,8 @@ class Rocket {
   float x, y, width, height;
   float fuel = 100.0;
   float angle, force;
-  Vector2 thurst, gravity, speed;
   boolean enginesOn;
+  Vector2 thurst, gravity, speed;
   
   public Rocket(float x, float y) {
     this.x = x; // Basic attributes

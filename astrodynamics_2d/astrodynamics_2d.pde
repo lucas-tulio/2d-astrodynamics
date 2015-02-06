@@ -2,10 +2,12 @@ ParticleSystem ps;
 Planet planet;
 Rocket rocket;
 Space space;
+Trajectory trajectory;
 boolean rekt;
 
 void setup() {
   size(960, 640);
+  trajectory = new Trajectory();
   ps = new ParticleSystem();
   start();
 }
@@ -14,7 +16,7 @@ void start() {
   
   planet = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
   rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
-  space = new Space(100);
+  space = new Space(500);
   rocket.y -= 180f;
   
   rekt = false;
@@ -61,6 +63,8 @@ void draw() {
   if (rekt == false) {
     rocket.draw(width, height, ps);
   }
+  
+  trajectory.draw(planet, rocket);
   
   fill(255);
   stroke(255);
