@@ -1,7 +1,7 @@
 class Trajectory {
   
   int currentDraw = 0;
-  int drawEvery = 10;
+  int drawEvery = 50;
   int maxPoints = 5000;
   
   void draw(Planet planet, Rocket rocket) {

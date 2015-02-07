@@ -6,7 +6,7 @@ Trajectory trajectory;
 boolean rekt;
 
 void setup() {
-  size(1366, 768);
+  size(1000, 600);
   trajectory = new Trajectory();
   ps = new ParticleSystem();
   start();
