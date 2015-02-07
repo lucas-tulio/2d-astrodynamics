@@ -17,7 +17,8 @@ void start() {
   planet = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
   rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
   space = new Space(500);
-  rocket.y -= 180f;
+  rocket.y -= 280f;
+  rocket.angle += PI/2;
   
   rekt = false;
 }
@@ -70,5 +71,9 @@ void draw() {
   stroke(255);
   text("distance to surface: " + Math.getDistanceToSurface(rocket, planet), 10, 20);
   text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planet)), 10, 40);
+  
+  text("Press R to restart", 10, 80);
+  text("Left/Right arrows to change angle", 10, 100);
+  text("Space to toggle engines", 10, 120);
 }
 
