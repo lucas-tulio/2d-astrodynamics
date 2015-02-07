@@ -1,7 +1,7 @@
 2d-astrodynamics
 ================
 
-2D astrodynamics
+2D astrodynamics. http://lucasdnd.github.io/2d-astrodynamics/
 
 #### Sources
 
