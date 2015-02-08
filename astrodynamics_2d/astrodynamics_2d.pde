@@ -45,13 +45,11 @@ void update() {
     rocket.update(planet);
   }
   
-  if (rocket.enginesOn) {
-    trajectory.calculate(planet, rocket);
-  }
+  
 }
 
 void draw() {
-
+  
   update();
   
   background(0);
@@ -60,6 +58,7 @@ void draw() {
     fill(255, 0, 0);
     stroke(255, 0, 0);
   } else {
+    trajectory.calculate(planet, rocket);
     fill(255);
     stroke(255);
   }

@@ -6,6 +6,7 @@ class Trajectory {
   Vector2 apoapsis = new Vector2(0f, 0f);
   float apoapsisDistance = Float.MAX_VALUE;
   
+  int drawEvery = 100;
   int maxPoints = 10000;
   
   void calculate(Planet planet, Rocket rocket) {
@@ -66,10 +67,12 @@ class Trajectory {
         apoapsis.y = r.y;
         apoapsisDistance = hypotenuse;
       }
+      
+      if (i % drawEvery == 0) {
+        point(r.x, r.y);
+      }
     }
     
-    println("periapsis = " + periapsis.x + ", " + periapsis.y);
-    println("apoapsis  = " + apoapsis.x  + ", " + apoapsis.y );
     periapsisDistance = -Float.MAX_VALUE;
     apoapsisDistance = Float.MAX_VALUE;
   }
