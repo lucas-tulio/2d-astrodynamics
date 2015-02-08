@@ -1,15 +1,15 @@
 class Trajectory {
   
   Vector2 periapsis = new Vector2(0f, 0f);
-  float periapsisDistance = -Float.MAX_VALUE;
-  
+  float periapsisDistance = -100000f;
   Vector2 apoapsis = new Vector2(0f, 0f);
-  float apoapsisDistance = Float.MAX_VALUE;
+  float apoapsisDistance = 100000f;
   
   int drawEvery = 100;
   int maxPoints = 10000;
   
   void calculate(Planet planet, Rocket rocket) {
+    
     // Create a copy of our rocket and run the same calculations
     // on it. Use the results to draw the trajectory
     
@@ -22,6 +22,8 @@ class Trajectory {
     r.thurst.y = rocket.thurst.y;
     r.speed.x = rocket.speed.x;
     r.speed.y = rocket.speed.y;
+    
+    float startingAngle;
     
     stroke(255);
     fill(255);
@@ -73,8 +75,8 @@ class Trajectory {
       }
     }
     
-    periapsisDistance = -Float.MAX_VALUE;
-    apoapsisDistance = Float.MAX_VALUE;
+    periapsisDistance = -100000f;
+    apoapsisDistance = 100000f;
   }
   
   void draw(Planet planet, Rocket rocket) {
