@@ -36,12 +36,17 @@ void keyPressed() {
 }
 
 void update() {
+  
   if (Math.getDistanceToCenter(rocket, planet) < planet.radius / 2) {
     rekt = true;
   }
   
   if (rekt == false) {
     rocket.update(planet);
+  }
+  
+  if (rocket.enginesOn) {
+    trajectory.calculate(planet, rocket);
   }
 }
 

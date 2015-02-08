@@ -1,11 +1,14 @@
 class Trajectory {
   
-  int currentDraw = 0;
-  int drawEvery = 50;
-  int maxPoints = 5000;
+  Vector2 periapsis = new Vector2(0f, 0f);
+  float periapsisDistance = -Float.MAX_VALUE;
   
-  void draw(Planet planet, Rocket rocket) {
-    
+  Vector2 apoapsis = new Vector2(0f, 0f);
+  float apoapsisDistance = Float.MAX_VALUE;
+  
+  int maxPoints = 10000;
+  
+  void calculate(Planet planet, Rocket rocket) {
     // Create a copy of our rocket and run the same calculations
     // on it. Use the results to draw the trajectory
     
@@ -53,11 +56,34 @@ class Trajectory {
       r.x += r.speed.x / 10f;
       r.y += r.speed.y / 10f;
       
-      currentDraw++;
-      if (currentDraw % drawEvery == 0) { 
-        point(r.x, r.y);
+      // Get the apoapsis and periapsis
+      if (periapsisDistance < hypotenuse) {
+        periapsis.x = r.x;
+        periapsis.y = r.y;
+        periapsisDistance = hypotenuse;
+      } else if (apoapsisDistance > hypotenuse) {
+        apoapsis.x = r.x;
+        apoapsis.y = r.y;
+        apoapsisDistance = hypotenuse;
       }
     }
+    
+    println("periapsis = " + periapsis.x + ", " + periapsis.y);
+    println("apoapsis  = " + apoapsis.x  + ", " + apoapsis.y );
+    periapsisDistance = -Float.MAX_VALUE;
+    apoapsisDistance = Float.MAX_VALUE;
+  }
+  
+  void draw(Planet planet, Rocket rocket) {
+    
+    stroke(255, 0, 0);
+    fill(255, 0, 0);
+    ellipse(periapsis.x, periapsis.y, 4, 4);
+    stroke(0, 0, 255);
+    fill(0, 0, 255);
+    ellipse(apoapsis.x, apoapsis.y, 4, 4);
+    stroke(255);
+    fill(255);
   }
 }
 

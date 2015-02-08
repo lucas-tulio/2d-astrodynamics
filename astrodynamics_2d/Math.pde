@@ -27,6 +27,13 @@ static class Math {
     return hypotenuse;
   }
   
+  static float getDistanceToCenter(float x1, float y1, float x2, float y2) {
+    float adjacent = getSide(x1, x2);
+    float opposite = getSide(y1, y2);
+    float hypotenuse = getHypotenuse(adjacent, opposite);
+    return hypotenuse;
+  }
+  
   /**
   * Returns the distance to the Planet's surface:
   */
