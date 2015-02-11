@@ -1,5 +1,5 @@
 ParticleSystem ps;
-Planet planet;
+Planet[] planets;
 Rocket rocket;
 Space space;
 Trajectory trajectory;
@@ -14,8 +14,12 @@ void setup() {
 
 void start() {
   
-  planet = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
-  rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
+  planets = new Planet[3];
+  planets[0] = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
+  planets[1] = new Planet(180f, 420f, PLANET_RADIUS, EARTH_MASS);
+  planets[2] = new Planet(680f, 100f, PLANET_RADIUS, EARTH_MASS);
+  
+  rocket = new Rocket(planets[0].x, planets[0].y - planets[0].radius / 2);
   space = new Space(500);
   rocket.y -= 280f;
   rocket.angle += PI/2;
@@ -37,15 +41,18 @@ void keyPressed() {
 
 void update() {
   
-  if (Math.getDistanceToCenter(rocket, planet) < planet.radius / 2) {
-    rekt = true;
+  for (int i = 0; i < planets.length; i++) {
+    if (Math.getDistanceToCenter(rocket, planets[i]) < planets[i].radius / 2) {
+      rekt = true;
+    }
   }
   
   if (rekt == false) {
-    rocket.update(planet);
-  }
-  
-  
+    for (int i = 0; i < planets.length; i++) {
+      rocket.update(planets[i]);
+    }
+  }  
+
 }
 
 void draw() {
@@ -58,23 +65,30 @@ void draw() {
     fill(255, 0, 0);
     stroke(255, 0, 0);
   } else {
-    trajectory.calculate(planet, rocket);
+    
+    for (int i = 0; i < planets.length; i++) {
+      trajectory.calculate(planets[i], rocket);
+    }
+    
     fill(255);
     stroke(255);
   }
   
   space.draw();
-  planet.draw();
+  for (int i = 0; i < planets.length; i++) {
+    planets[i].draw();
+  }
+  
   if (rekt == false) {
     rocket.draw(width, height, ps);
   }
   
-  trajectory.draw(planet, rocket);
+  for (int i = 0; i < planets.length; i++) {
+    trajectory.draw(planets[i], rocket);
+  }
   
   fill(255);
   stroke(255);
-  text("distance to surface: " + Math.getDistanceToSurface(rocket, planet), 10, 20);
-  text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planet)), 10, 40);
   
   text("Press R to restart", 10, 80);
   text("Left/Right arrows to change angle", 10, 100);
