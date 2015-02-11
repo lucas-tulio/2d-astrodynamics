@@ -5,12 +5,16 @@ class Trajectory {
   Vector2 apoapsis = new Vector2(0f, 0f);
   float apoapsisDistance = -100000f;
 
-  int drawEvery = 100;
-  int maxPoints = 5000;
+  int drawEvery, maxPoints;
   boolean invertDrawing;
   
   float textOffsetX = 4f;
   float textOffsetY = -2f;
+  
+  public Trajectory(int drawEvery, int maxPoints) {
+    this.drawEvery = drawEvery;
+    this.maxPoints = maxPoints;
+  }
 
   void calculate(Planet[] planets, Rocket rocket) {
 

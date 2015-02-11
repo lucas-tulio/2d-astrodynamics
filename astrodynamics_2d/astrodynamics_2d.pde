@@ -4,20 +4,27 @@ Rocket rocket;
 Space space;
 Trajectory trajectory;
 boolean rekt;
+int numPlanets = 1;
 
 void setup() {
   size(1000, 600);
-  trajectory = new Trajectory();
+  frameRate(60);
   ps = new ParticleSystem();
   start();
 }
 
 void start() {
   
-  planets = new Planet[1];
-  planets[0] = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
-  //planets[1] = new Planet(180f, 420f, PLANET_RADIUS, EARTH_MASS);
-  //planets[2] = new Planet(680f, 100f, PLANET_RADIUS, EARTH_MASS);
+  planets = new Planet[numPlanets];
+  if (numPlanets == 1) {
+    planets[0] = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
+    trajectory = new Trajectory(50, 5000);
+  } else {
+    for (int i = 0; i < planets.length; i++) {
+      planets[i] = new Planet(random(width), random(height), PLANET_RADIUS, EARTH_MASS);
+    }
+    trajectory = new Trajectory(10, 1000);
+  }
   
   rocket = new Rocket(360f, 50f);
   rocket.angle += PI/2;
@@ -91,5 +98,6 @@ void draw() {
   text("Press R to restart", 10, 20);
   text("Left/Right arrows to change angle", 10, 40);
   text("Space to toggle engines", 10, 60);
+  text("fps: " + frameRate, 10, 80);
 }
 
