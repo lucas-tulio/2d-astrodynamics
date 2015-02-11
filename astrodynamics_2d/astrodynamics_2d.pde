@@ -19,10 +19,10 @@ void start() {
   planets[1] = new Planet(180f, 420f, PLANET_RADIUS, EARTH_MASS);
   planets[2] = new Planet(680f, 100f, PLANET_RADIUS, EARTH_MASS);
   
-  rocket = new Rocket(planets[0].x, planets[0].y - planets[0].radius / 2);
-  space = new Space(500);
-  rocket.y -= 280f;
+  rocket = new Rocket(360f, 50f);
   rocket.angle += PI/2;
+  
+  space = new Space(500);
   
   rekt = false;
 }
