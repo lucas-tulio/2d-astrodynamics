@@ -66,9 +66,7 @@ void draw() {
     stroke(255, 0, 0);
   } else {
     
-    for (int i = 0; i < planets.length; i++) {
-      trajectory.calculate(planets[i], rocket);
-    }
+    trajectory.calculate(planets, rocket);
     
     fill(255);
     stroke(255);

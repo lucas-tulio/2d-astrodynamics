@@ -5,19 +5,19 @@ class Trajectory {
   Vector2 apoapsis = new Vector2(0f, 0f);
   float apoapsisDistance = -100000f;
 
-  int drawEvery = 100;
-  int maxPoints = 10000;
+  int drawEvery = 10;
+  int maxPoints = 1000;
   boolean invertDrawing;
   
   float textOffsetX = 4f;
   float textOffsetY = -2f;
 
-  void calculate(Planet planet, Rocket rocket) {
+  void calculate(Planet[] planets, Rocket rocket) {
 
     // Create a copy of our rocket and run the same calculations
     // on it. Use the results to draw the trajectory
 
-    Rocket r = new Rocket(planet.x, planet.y - planet.radius / 2);
+    Rocket r = new Rocket(0f, 0f);
     r.x = rocket.x;
     r.y = rocket.y;
     r.gravity.x = rocket.gravity.x;
@@ -33,49 +33,50 @@ class Trajectory {
     fill(255);
 
     for (int i = 0; i < maxPoints; i++) {
+      for (int j = 0; j < planets.length; j++) {
+        // Pythagoras
+        float adjacent, opposite, hypotenuse = 0f;
+        adjacent = Math.getSide(r.x, planets[j].x);
+        opposite = Math.getSide(r.y, planets[j].y);
+        hypotenuse = Math.getHypotenuse(adjacent, opposite);
+  
+        // Calculate gravity force and angle
+        float gravitySin = adjacent / hypotenuse;
+        float gravityCos = opposite / hypotenuse;
+        float gravityForce = Math.getGravityForce(hypotenuse);
+        r.gravity.x = gravityForce * gravitySin;
+        r.gravity.y = gravityForce * gravityCos;
+  
+        // Update thurst vector
+        if (r.enginesOn) {
+          r.thurst.x = -sin(r.angle) * r.force;
+          r.thurst.y = cos(r.angle) * r.force;
+        } else {
+          r.thurst.x = 0f;
+          r.thurst.y = 0f;
+        }
+  
+        // Sum it all up
+        r.speed.x += -r.gravity.x + r.thurst.x;
+        r.speed.y += -r.gravity.y + r.thurst.y;
+  
+        r.x += r.speed.x / 10f;
+        r.y += r.speed.y / 10f;
+      
+        // Get the apoapsis and periapsis
+        if (periapsisDistance > hypotenuse) {
+          periapsis.x = r.x;
+          periapsis.y = r.y;
+          periapsisDistance = hypotenuse;
+        } else if (apoapsisDistance < hypotenuse) {
+          apoapsis.x = r.x;
+          apoapsis.y = r.y;
+          apoapsisDistance = hypotenuse;
+        }
 
-      // Pythagoras
-      float adjacent, opposite, hypotenuse = 0f;
-      adjacent = Math.getSide(r.x, planet.x);
-      opposite = Math.getSide(r.y, planet.y);
-      hypotenuse = Math.getHypotenuse(adjacent, opposite);
-
-      // Calculate gravity force and angle
-      float gravitySin = adjacent / hypotenuse;
-      float gravityCos = opposite / hypotenuse;
-      float gravityForce = Math.getGravityForce(hypotenuse);
-      r.gravity.x = gravityForce * gravitySin;
-      r.gravity.y = gravityForce * gravityCos;
-
-      // Update thurst vector
-      if (r.enginesOn) {
-        r.thurst.x = -sin(r.angle) * r.force;
-        r.thurst.y = cos(r.angle) * r.force;
-      } else {
-        r.thurst.x = 0f;
-        r.thurst.y = 0f;
-      }
-
-      // Sum it all up
-      r.speed.x += -r.gravity.x + r.thurst.x;
-      r.speed.y += -r.gravity.y + r.thurst.y;
-
-      r.x += r.speed.x / 10f;
-      r.y += r.speed.y / 10f;
-
-      // Get the apoapsis and periapsis
-      if (periapsisDistance > hypotenuse) {
-        periapsis.x = r.x;
-        periapsis.y = r.y;
-        periapsisDistance = hypotenuse;
-      } else if (apoapsisDistance < hypotenuse) {
-        apoapsis.x = r.x;
-        apoapsis.y = r.y;
-        apoapsisDistance = hypotenuse;
-      }
-
-      if (i % drawEvery == 0) {
-        point(r.x, r.y);
+        if (i % drawEvery == 0) {
+          point(r.x, r.y);
+        }
       }
     }
 
