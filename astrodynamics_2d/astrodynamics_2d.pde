@@ -14,10 +14,10 @@ void setup() {
 
 void start() {
   
-  planets = new Planet[3];
+  planets = new Planet[1];
   planets[0] = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
-  planets[1] = new Planet(180f, 420f, PLANET_RADIUS, EARTH_MASS);
-  planets[2] = new Planet(680f, 100f, PLANET_RADIUS, EARTH_MASS);
+  //planets[1] = new Planet(180f, 420f, PLANET_RADIUS, EARTH_MASS);
+  //planets[2] = new Planet(680f, 100f, PLANET_RADIUS, EARTH_MASS);
   
   rocket = new Rocket(360f, 50f);
   rocket.angle += PI/2;
@@ -81,15 +81,15 @@ void draw() {
     rocket.draw(width, height, ps);
   }
   
-  for (int i = 0; i < planets.length; i++) {
-    trajectory.draw(planets[i], rocket);
+  if (planets.length == 1) {
+    trajectory.draw(planets[0], rocket);
   }
   
   fill(255);
   stroke(255);
   
-  text("Press R to restart", 10, 80);
-  text("Left/Right arrows to change angle", 10, 100);
-  text("Space to toggle engines", 10, 120);
+  text("Press R to restart", 10, 20);
+  text("Left/Right arrows to change angle", 10, 40);
+  text("Space to toggle engines", 10, 60);
 }
 

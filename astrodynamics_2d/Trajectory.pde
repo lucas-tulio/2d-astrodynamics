@@ -5,8 +5,8 @@ class Trajectory {
   Vector2 apoapsis = new Vector2(0f, 0f);
   float apoapsisDistance = -100000f;
 
-  int drawEvery = 10;
-  int maxPoints = 1000;
+  int drawEvery = 100;
+  int maxPoints = 5000;
   boolean invertDrawing;
   
   float textOffsetX = 4f;
@@ -85,7 +85,7 @@ class Trajectory {
   }
 
   void draw(Planet planet, Rocket rocket) {
-
+  
     stroke(255, 0, 0);
     fill(255, 0, 0);
     ellipse(periapsis.x, periapsis.y, 4, 4);
