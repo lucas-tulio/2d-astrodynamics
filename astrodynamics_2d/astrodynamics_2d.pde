@@ -95,9 +95,13 @@ void draw() {
   fill(255);
   stroke(255);
   
-  text("Press R to restart", 10, 20);
-  text("Left/Right arrows to change angle", 10, 40);
-  text("Space to toggle engines", 10, 60);
-  text("fps: " + frameRate, 10, 80);
+  if (planets.length == 1) {
+    text("distance to surface: " + Math.getDistanceToSurface(rocket, planets[0]), 10, 20);
+    text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planets[0])), 10, 40);
+  }
+  
+  text("Press R to restart", 10, 80);
+  text("Left/Right arrows to change angle", 10, 100);
+  text("Space to toggle engines", 10, 120);
 }
 
