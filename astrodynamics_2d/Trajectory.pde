@@ -22,8 +22,8 @@ class Trajectory {
     r.y = rocket.y;
     r.gravity.x = rocket.gravity.x;
     r.gravity.y = rocket.gravity.y;
-    r.thurst.x = rocket.thurst.x;
-    r.thurst.y = rocket.thurst.y;
+    r.thrust.x = rocket.thrust.x;
+    r.thrust.y = rocket.thrust.y;
     r.speed.x = rocket.speed.x;
     r.speed.y = rocket.speed.y;
 
@@ -47,18 +47,18 @@ class Trajectory {
       r.gravity.x = gravityForce * gravitySin;
       r.gravity.y = gravityForce * gravityCos;
 
-      // Update thurst vector
+      // Update thrust vector
       if (r.enginesOn) {
-        r.thurst.x = -sin(r.angle) * r.force;
-        r.thurst.y = cos(r.angle) * r.force;
+        r.thrust.x = -sin(r.angle) * r.force;
+        r.thrust.y = cos(r.angle) * r.force;
       } else {
-        r.thurst.x = 0f;
-        r.thurst.y = 0f;
+        r.thrust.x = 0f;
+        r.thrust.y = 0f;
       }
 
       // Sum it all up
-      r.speed.x += -r.gravity.x + r.thurst.x;
-      r.speed.y += -r.gravity.y + r.thurst.y;
+      r.speed.x += -r.gravity.x + r.thrust.x;
+      r.speed.y += -r.gravity.y + r.thrust.y;
 
       r.x += r.speed.x / 10f;
       r.y += r.speed.y / 10f;
