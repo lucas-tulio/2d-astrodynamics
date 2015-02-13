@@ -5,6 +5,8 @@ Space space;
 Trajectory trajectory;
 boolean rekt;
 
+boolean leftKey, rightKey, upKey;
+
 void setup() {
   size(1000, 600);
   trajectory = new Trajectory();
@@ -26,16 +28,43 @@ void start() {
 void keyPressed() {
   if (keyCode == 82) {
     start();
-  } else if (keyCode == 32) { // Space
-    rocket.toggleThurst();
-  } else if (keyCode == 37) { // Left
+  }
+  if (keyCode == 38) {
+    upKey = true;
+  }
+  if (keyCode == 37) {
+    leftKey = true;
+  }
+  if (keyCode == 39) {
+    rightKey = true;
+  }
+}
+void keyReleased() {
+  if (keyCode == 38) {
+    upKey = false;
+  }
+  if (keyCode == 37) {
+    leftKey = false;
+  }
+  if (keyCode == 39) {
+    rightKey = false;
+  }
+}
+
+void handleInput() {
+
+  rocket.enginesOn = upKey;
+
+  if (leftKey) { // Left
     rocket.rotateLeft();
-  } else if (keyCode == 39) { // Right
+  } else if (rightKey) { // Right
     rocket.rotateRight();
   }
 }
 
 void update() {
+  
+  handleInput();
   
   if (Math.getDistanceToCenter(rocket, planet) < planet.radius / 2) {
     rekt = true;
@@ -78,6 +107,6 @@ void draw() {
   
   text("Press R to restart", 10, 80);
   text("Left/Right arrows to change angle", 10, 100);
-  text("Space to toggle engines", 10, 120);
+  text("Up to thrust", 10, 120);
 }
 
