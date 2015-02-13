@@ -1,26 +1,37 @@
 ParticleSystem ps;
-Planet planet;
+Planet[] planets;
 Rocket rocket;
 Space space;
 Trajectory trajectory;
 boolean rekt;
+int numPlanets = 1;
 
 boolean leftKey, rightKey, upKey;
 
 void setup() {
   size(1000, 600);
-  trajectory = new Trajectory();
+  frameRate(60);
   ps = new ParticleSystem();
   start();
 }
 
 void start() {
   
-  planet = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
-  rocket = new Rocket(planet.x, planet.y - planet.radius / 2);
-  space = new Space(500);
-  rocket.y -= 280f;
+  planets = new Planet[numPlanets];
+  if (numPlanets == 1) {
+    planets[0] = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
+    trajectory = new Trajectory(50, 5000);
+  } else {
+    for (int i = 0; i < planets.length; i++) {
+      planets[i] = new Planet(random(width), random(height), PLANET_RADIUS, EARTH_MASS);
+    }
+    trajectory = new Trajectory(10, 1000);
+  }
+  
+  rocket = new Rocket(360f, 50f);
   rocket.angle += PI/2;
+  
+  space = new Space(500);
   
   rekt = false;
 }
@@ -65,16 +76,19 @@ void handleInput() {
 void update() {
   
   handleInput();
-  
-  if (Math.getDistanceToCenter(rocket, planet) < planet.radius / 2) {
-    rekt = true;
+
+  for (int i = 0; i < planets.length; i++) {
+    if (Math.getDistanceToCenter(rocket, planets[i]) < planets[i].radius / 2) {
+      rekt = true;
+    }
   }
   
   if (rekt == false) {
-    rocket.update(planet);
-  }
-  
-  
+    for (int i = 0; i < planets.length; i++) {
+      rocket.update(planets[i]);
+    }
+  }  
+
 }
 
 void draw() {
@@ -87,23 +101,33 @@ void draw() {
     fill(255, 0, 0);
     stroke(255, 0, 0);
   } else {
-    trajectory.calculate(planet, rocket);
+    
+    trajectory.calculate(planets, rocket);
+    
     fill(255);
     stroke(255);
   }
   
   space.draw();
-  planet.draw();
+  for (int i = 0; i < planets.length; i++) {
+    planets[i].draw();
+  }
+  
   if (rekt == false) {
     rocket.draw(width, height, ps);
   }
   
-  trajectory.draw(planet, rocket);
+  if (planets.length == 1) {
+    trajectory.draw(planets[0], rocket);
+  }
   
   fill(255);
   stroke(255);
-  text("distance to surface: " + Math.getDistanceToSurface(rocket, planet), 10, 20);
-  text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planet)), 10, 40);
+  
+  if (planets.length == 1) {
+    text("distance to surface: " + Math.getDistanceToSurface(rocket, planets[0]), 10, 20);
+    text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planets[0])), 10, 40);
+  }
   
   text("Press R to restart", 10, 80);
   text("Left/Right arrows to change angle", 10, 100);
