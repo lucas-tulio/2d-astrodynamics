@@ -16,7 +16,7 @@ class Trajectory {
     this.maxPoints = maxPoints;
   }
 
-  void calculate(Planet[] planets, Rocket rocket) {
+  void calculateAndDraw(Planet[] planets, Rocket rocket) {
 
     // Create a copy of our rocket and run the same calculations
     // on it. Use the results to draw the trajectory

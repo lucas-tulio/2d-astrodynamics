@@ -102,7 +102,7 @@ void draw() {
     stroke(255, 0, 0);
   } else {
     
-    trajectory.calculate(planets, rocket);
+    trajectory.calculateAndDraw(planets, rocket);
     
     fill(255);
     stroke(255);
