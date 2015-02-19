@@ -96,31 +96,29 @@ void draw() {
   update();
   
   background(0);
-  
-  if (rekt) {
-    fill(255, 0, 0);
-    stroke(255, 0, 0);
-  } else {
-    
+
+  // Draw trajectory  
+  if (rekt == false) {
+
     trajectory.calculateAndDraw(planets, rocket);
     
-    fill(255);
-    stroke(255);
+    if (planets.length == 1) {
+      trajectory.draw(planets[0], rocket);
+    }
   }
   
+  // Draw space and Planets
   space.draw();
   for (int i = 0; i < planets.length; i++) {
     planets[i].draw();
   }
   
+  // Draw the rocket
   if (rekt == false) {
     rocket.draw(width, height, ps);
   }
-  
-  if (planets.length == 1) {
-    trajectory.draw(planets[0], rocket);
-  }
-  
+
+  // Draw UI text  
   fill(255);
   stroke(255);
   
@@ -128,7 +126,6 @@ void draw() {
     text("distance to surface: " + Math.getDistanceToSurface(rocket, planets[0]), 10, 20);
     text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planets[0])), 10, 40);
   }
-  
   text("Press R to restart", 10, 80);
   text("Left/Right arrows to change angle", 10, 100);
   text("Up to thrust", 10, 120);
