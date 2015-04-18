@@ -91,6 +91,10 @@ void update() {
 
 }
 
+void mouseClicked() {
+  rocket.enginesOn = !rocket.enginesOn;
+}
+
 void draw() {
   
   update();
