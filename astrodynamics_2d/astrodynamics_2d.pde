@@ -87,12 +87,11 @@ void update() {
     for (int i = 0; i < planets.length; i++) {
       rocket.update(planets[i]);
     }
-  }  
-
+  }
 }
 
 void mouseClicked() {
-  rocket.enginesOn = !rocket.enginesOn;
+  upKey = !upKey;
 }
 
 void draw() {
