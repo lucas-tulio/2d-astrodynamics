@@ -1,25 +1,31 @@
+<!doctype html>
 <html>
-<body style="background-color: #000000">
-<script src="./js/processing.min.js"></script>
-<div style="display: block; width: 1000px; margin: auto;">
-  <canvas id="canvas" tabindex="1" data-processing-sources="
-    ./astrodynamics_2d/Math.pde
-    ./astrodynamics_2d/Particles.pde
-    ./astrodynamics_2d/Planet.pde
-    ./astrodynamics_2d/Rocket.pde
-    ./astrodynamics_2d/Space.pde
-    ./astrodynamics_2d/Trajectory.pde
-    ./astrodynamics_2d/Vector2.pde
-    ./astrodynamics_2d/astrodynamics_2d.pde
-    "></canvas>
 
-  <p><a style="color: #ffffff; text-decoration: underline; font-family: monospace;" href="http://github.com/lucasdnd/2d-astrodynamics">View source code on Github</a></p>
-</div>
-<script>
-  window.onload = function() {
-    var canvas = document.getElementById("canvas");
-    canvas.focus();
-  };
-</script>
+<head>
+  <title>2d-astrodynamics</title>
+</head>
+
+<body style="background-color: #000000">
+  <script src="./js/processing.min.js"></script>
+  <div style="display: block; width: 1000px; margin: auto;">
+    <canvas id="canvas" tabindex="1" data-processing-sources="
+      ./astrodynamics_2d/Math.pde
+      ./astrodynamics_2d/Particles.pde
+      ./astrodynamics_2d/Planet.pde
+      ./astrodynamics_2d/Rocket.pde
+      ./astrodynamics_2d/Space.pde
+      ./astrodynamics_2d/Trajectory.pde
+      ./astrodynamics_2d/Vector2.pde
+      ./astrodynamics_2d/astrodynamics_2d.pde
+      "></canvas>
+
+    <p><a style="color: #ffffff; text-decoration: underline; font-family: monospace;" href="http://github.com/lucasdnd/2d-astrodynamics">View source code on Github</a></p>
+  </div>
+  <script>
+    window.onload = function() {
+      var canvas = document.getElementById("canvas");
+      canvas.focus();
+    };
+  </script>
 </body>
 </html>
