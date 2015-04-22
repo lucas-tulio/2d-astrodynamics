@@ -40,7 +40,7 @@ void keyPressed() {
   if (keyCode == 82) {
     start();
   }
-  if (keyCode == 38) {
+  if (keyCode == 38 || keyCode == 32) {
     upKey = true;
   }
   if (keyCode == 37) {
@@ -50,8 +50,9 @@ void keyPressed() {
     rightKey = true;
   }
 }
+
 void keyReleased() {
-  if (keyCode == 38) {
+  if (keyCode == 38|| keyCode == 32) {
     upKey = false;
   }
   if (keyCode == 37) {
@@ -94,6 +95,11 @@ void mouseClicked() {
   upKey = !upKey;
 }
 
+void mouseMoved() {
+  // Mouse look
+  rocket.angle = -atan2((mouseX - rocket.x), ((mouseY - rocket.y) * PI));
+}
+
 void draw() {
   
   update();
@@ -121,7 +127,7 @@ void draw() {
     rocket.draw(width, height, ps);
   }
 
-  // Draw UI text  
+  // Draw UI text
   fill(255);
   stroke(255);
   
@@ -131,6 +137,6 @@ void draw() {
   }
   text("Press R to restart", 10, 80);
   text("Left/Right arrows to change angle", 10, 100);
-  text("Up to thrust", 10, 120);
+  text("Up or space to thrust", 10, 120);
 }
 

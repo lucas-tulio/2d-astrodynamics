@@ -10,9 +10,8 @@ class Space {
   
   void draw() {
     fill(255);
-      stroke(255);
+    stroke(255);
     for (int i = 0; i < stars.length; i++) {
-      
       point(stars[i].x, stars[i].y);
     }
   }
