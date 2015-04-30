@@ -9,7 +9,7 @@ int numPlanets = 1;
 boolean leftKey, rightKey, upKey;
 
 void setup() {
-  size(1000, 800);
+  size(1000, 600);
   frameRate(60);
   noSmooth();
   ps = new ParticleSystem();
