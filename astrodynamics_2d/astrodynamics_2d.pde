@@ -5,6 +5,7 @@ Space space;
 Trajectory trajectory;
 boolean rekt;
 int numPlanets = 1;
+boolean showText;
 
 boolean leftKey, rightKey, upKey;
 
@@ -35,6 +36,7 @@ void start() {
   space = new Space(500);
   
   rekt = false;
+  showText = true;
 }
 
 void keyPressed() {
@@ -132,12 +134,14 @@ void draw() {
   fill(255);
   stroke(255);
   
-  if (planets.length == 1) {
-    text("distance to surface: " + Math.getDistanceToSurface(rocket, planets[0]), 10, 20);
-    text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planets[0])), 10, 40);
+  if (showText) {
+    if (planets.length == 1) {
+      text("distance to surface: " + Math.getDistanceToSurface(rocket, planets[0]), 10, 20);
+      text("gravity on rocket: " + Math.getGravityForce(Math.getDistanceToCenter(rocket, planets[0])), 10, 40);
+    }
+    text("Press R to restart", 10, 80);
+    text("Left/Right arrows to change angle", 10, 100);
+    text("Up or space to thrust", 10, 120);
   }
-  text("Press R to restart", 10, 80);
-  text("Left/Right arrows to change angle", 10, 100);
-  text("Up or space to thrust", 10, 120);
 }
 
