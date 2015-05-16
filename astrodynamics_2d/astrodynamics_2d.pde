@@ -40,6 +40,9 @@ void start() {
 }
 
 void keyPressed() {
+  if (keyCode == 72) {
+    showText = !showText;
+  }
   if (keyCode == 82) {
     start();
   }
@@ -142,6 +145,7 @@ void draw() {
     text("Press R to restart", 10, 80);
     text("Left/Right arrows to change angle", 10, 100);
     text("Up or space to thrust", 10, 120);
+    text("H to hide this text", 10, 140);
   }
 }
 
