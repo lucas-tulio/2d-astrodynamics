@@ -4,7 +4,7 @@ class Rocket {
   float fuel = 100.0;
   float angle, force;
   boolean enginesOn;
-  Vector2 thrust, gravity, speed;
+  Vector2 thurst, gravity, speed;
   
   public Rocket(float x, float y) {
     this.x = x; // Basic attributes
@@ -14,7 +14,7 @@ class Rocket {
     this.x -= width / 2; // Horizontal adjust
     angle = -PI;
     
-    thrust = new Vector2(0f, 0f);
+    thurst = new Vector2(0f, 0f);
     gravity = new Vector2(0f, 0f);
     speed = new Vector2(0f, 0f);
     force = 0.1f;
@@ -47,17 +47,17 @@ class Rocket {
     
     // Update thrust vector
     if (enginesOn) {
-      thrust.x = -sin(angle) * force;
-      thrust.y = cos(angle) * force;
+      thurst.x = -sin(angle) * force;
+      thurst.y = cos(angle) * force;
     } else {
-      thrust.x = 0f;
-      thrust.y = 0f;
+      thurst.x = 0f;
+      thurst.y = 0f;
     }
     
     // Sum it all up
-    speed.x += -gravity.x + thrust.x;
-    speed.y += -gravity.y + thrust.y;
-    
+    speed.x += -gravity.x + thurst.x;
+    speed.y += -gravity.y + thurst.y;
+
     this.x += speed.x / 10f;
     this.y += speed.y / 10f;
   }
