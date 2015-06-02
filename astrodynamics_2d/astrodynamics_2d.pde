@@ -110,7 +110,7 @@ void mouseClicked() {
 
 void mouseMoved() {
   // Mouse look
-  rocket.angle = -atan2((mouseX - rocket.x), ((mouseY - rocket.y) * PI));
+  rocket.angle = atan2(mouseY - rocket.y, mouseX - rocket.x) - PI/2f;
 }
 
 void update() {
