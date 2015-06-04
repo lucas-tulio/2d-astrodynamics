@@ -79,8 +79,6 @@ class Trajectory {
         }
 
         if (i % drawEvery == 0) {
-          
-          println("" + (1f - (float)i / (float)maxPoints));
           stroke(255, 255, 255, 255 * (float)i / (float)maxPoints);
           fill(255, 255, 255, 255 * (float)i / (float)maxPoints);
           ellipse(r.x, r.y, 3f, 3f);
