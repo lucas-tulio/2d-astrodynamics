@@ -1,9 +1,12 @@
 static final float G = 6.673 * pow(10, -11); // Gravitational constant
-static final float EARTH_MASS = 5.98 * pow(10, 24); // Real Earth mass
-static final float DIST = 6.38 * pow(10, 6); // Real Earth radius
 
-static final float PLANET_RADIUS = 10f; // Scale it down
-static final float SCALE = DIST / PLANET_RADIUS;
+// Planet data
+static final float EARTH_MASS = 5.98 * pow(10, 24); // Real Earth mass
+static final float EARTH_RADIUS = 6.38 * pow(10, 6); // Real Earth radius
+
+// Scaling it down
+static final float EARTH_RADIUS_IN_PIXELS = 10f;
+static final float SCALE = EARTH_RADIUS / EARTH_RADIUS_IN_PIXELS;
 
 static class Math {
   
