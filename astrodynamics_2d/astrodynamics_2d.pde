@@ -22,7 +22,7 @@ void start() {
   planets = new Planet[numPlanets];
   if (numPlanets == 1) {
     planets[0] = new Planet(width / 2, height / 2, PLANET_RADIUS, EARTH_MASS);
-    trajectory = new Trajectory(50, 5000);
+    trajectory = new Trajectory(50, 2000);
   } else {
     for (int i = 0; i < planets.length; i++) {
       planets[i] = new Planet(random(width), random(height), PLANET_RADIUS, EARTH_MASS);
